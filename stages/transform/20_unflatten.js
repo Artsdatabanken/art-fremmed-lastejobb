@@ -29,7 +29,7 @@ function map(rec) {
 
 function erUkjent(v) {
   if (typeof v !== "string") return false;
-  const ukjente = ["ukjent", "vet ikke"];
+  const ukjente = ["ukjent", "vet ikke", "unknown"];
   const lc = v.toLowerCase();
   for (var ukjent of ukjente) if (lc === ukjent) return true;
   return false;
