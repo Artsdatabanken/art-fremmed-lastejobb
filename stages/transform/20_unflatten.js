@@ -9,6 +9,7 @@ function map(rec) {
   Object.keys(rec).forEach(key => {
     const value = rec[key];
     key = key.toLowerCase();
+    key = key.replace(", år", " (år)");
     if (value.length === 0) return;
     const segs = key.replace(" - ", ",").split(",");
     let cursor = ok;
@@ -25,21 +26,6 @@ function map(rec) {
 
 function cleanValue(v, k) {
   switch (k) {
-    case "år":
-    case "andel i sterkt endra natur (%)":
-    case "km²":
-    case "m/år":
-      if (v !== "0" && !parseFloat(v)) return v;
-      return parseFloat(v);
-    case "delkategori":
-    case "referanser":
-    case "antall arter":
-    case "antall veier":
-    case "taxonid":
-    case "scientificnameid":
-      if (v !== "0" && !parseInt(v)) return v;
-      if (parseInt(v) !== parseFloat(v)) debugger;
-      return parseInt(v);
     case "utslagsgivende kriterier 2018":
     case "hovedveier":
     case "andre arter/nøkkelarter":
@@ -58,6 +44,10 @@ function cleanValue(v, k) {
         acc[f[0]] = f[1].split(",");
         return acc;
       }, {});
+    default:
+      // Convert to number if value is a number
+      const num = parseFloat(v);
+      if (!Number.isNaN(num)) return num;
+      return v;
   }
-  return v;
 }
