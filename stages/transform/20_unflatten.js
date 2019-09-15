@@ -14,6 +14,7 @@ function map(rec) {
     key = key.toLowerCase();
     key = key.replace(", år", " (år)");
     key = key.replace(", km²", " (km²)");
+    key = key.replace(", antall arter", "");
     const segs = key.replace(" - ", ",").split(",");
     let cursor = ok;
     while (segs.length > 1) {
