@@ -7,10 +7,12 @@ io.skrivDatafil(__filename, r);
 function map(rec) {
   const ok = {};
   Object.keys(rec).forEach(key => {
-    const value = rec[key];
+    let value = rec[key];
+    if (value.length === 0) return;
+    if (erUkjent(value)) return;
+
     key = key.toLowerCase();
     key = key.replace(", år", " (år)");
-    if (value.length === 0) return;
     const segs = key.replace(" - ", ",").split(",");
     let cursor = ok;
     while (segs.length > 1) {
@@ -19,9 +21,18 @@ function map(rec) {
       cursor = cursor[seg];
     }
     const k = segs.shift().trim();
-    cursor[k] = cleanValue(value, k);
+    value = cleanValue(value, k);
+    cursor[k] = value;
   });
   return ok;
+}
+
+function erUkjent(v) {
+  if (typeof v !== "string") return false;
+  const ukjente = ["ukjent", "vet ikke"];
+  const lc = v.toLowerCase();
+  for (var ukjent of ukjente) if (lc === ukjent) return true;
+  return false;
 }
 
 function cleanValue(v, k) {
