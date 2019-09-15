@@ -5,10 +5,8 @@ const moveKey = json.moveKey;
 
 const items = io.lesDatafil("20_unflatten").items;
 items.forEach(rec => reorganize(rec));
-io.skrivBuildfil("type", items);
+io.skrivBuildfil("original", items);
 
 function reorganize(e) {
   Object.keys(structure).forEach(key => moveKey(e, key, structure[key]));
 }
-
-//.map(e => "NN-NA-TI-" + e);

@@ -13,6 +13,7 @@ function map(rec) {
 
     key = key.toLowerCase();
     key = key.replace(", år", " (år)");
+    key = key.replace(", km²", " (km²)");
     const segs = key.replace(" - ", ",").split(",");
     let cursor = ok;
     while (segs.length > 1) {
@@ -37,6 +38,9 @@ function erUkjent(v) {
 
 function cleanValue(v, k) {
   switch (k) {
+    case "seksuell reproduksjon":
+    case "aseksuell reproduksjon":
+      return v === "V" ? true : v;
     case "utslagsgivende kriterier 2018":
     case "hovedveier":
     case "andre arter/nøkkelarter":
@@ -56,6 +60,7 @@ function cleanValue(v, k) {
         return acc;
       }, {});
     default:
+      if (v === "V") return true;
       // Convert to number if value is a number
       const num = parseFloat(v);
       if (!Number.isNaN(num)) return num;
