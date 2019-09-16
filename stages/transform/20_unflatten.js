@@ -45,6 +45,7 @@ function cleanValue(v, k) {
     case "utslagsgivende kriterier 2018":
     case "hovedveier":
     case "andre arter/nøkkelarter":
+    case "trua arter/nøkkelarter":
     case "arten finnes i følgende fylker/områder":
     case "marint":
     case "livsmiljø":
