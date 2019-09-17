@@ -3,7 +3,7 @@ const structure = require("./structure");
 
 const items = io.lesDatafil("20_unflatten").items;
 items.forEach(rec => reorganize(rec));
-io.skrivBuildfil("type", items);
+io.skrivDatafil(__filename, items);
 
 function reorganize(e) {
   stripHtml(e, "invasjonspotensial");
