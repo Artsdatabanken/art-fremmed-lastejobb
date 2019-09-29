@@ -26,6 +26,9 @@ function map(rec) {
     value = cleanValue(value, k);
     cursor[k] = value;
   });
+  ok.kode = ok.id.replace(/\//g, "-");
+  ok.autorkode = ok.id;
+  delete ok.id;
   return ok;
 }
 
