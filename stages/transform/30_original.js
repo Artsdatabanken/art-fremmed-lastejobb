@@ -2,8 +2,31 @@ const { io, json } = require("lastejobb");
 const structure = require("./structure");
 
 const items = io.lesDatafil("20_unflatten").items;
-items.forEach(rec => reorganize(rec));
+items.forEach(rec => {
+  reorganize(rec);
+  if (!rec.risikovurdering) return;
+  if (!rec.risikovurdering.risikonivå) return;
+  relasjon(
+    rec,
+    "Risikonivå",
+    "FA-" + rec.risikovurdering.risikonivå.nå,
+    "Art",
+    true
+  );
+});
+
 io.skrivBuildfil("art", items);
+
+function relasjon(e, kant, kode, kantRetur, erSubset = true) {
+  const rel = {
+    kode: kode,
+    kant: kant,
+    kantRetur: kantRetur || "Naturvernområde"
+  };
+  if (erSubset) rel.erSubset = true;
+  e.relasjon = e.relasjon || [];
+  e.relasjon.push(rel);
+}
 
 function reorganize(e) {
   stripHtml(e, "invasjonspotensial");
