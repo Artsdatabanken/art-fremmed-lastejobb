@@ -1,3 +1,9 @@
+# art-fremmed-lastejobb
+
+## Dokumentasjon
+
+- https://www.artsdatabanken.no/Files/17654/Retningslinjer_for__kologisk_risikovurdering_av_fremmede_arter_-_versjon_3.5.pdf
+
 ## Kataloger
 
 - `stages/download`: Script for å laste ned eksterne datafiler til `data/`
