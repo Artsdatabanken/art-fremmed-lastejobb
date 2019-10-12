@@ -4,29 +4,8 @@ const structure = require("./structure");
 const items = io.lesDatafil("20_unflatten").items;
 items.forEach(rec => {
   reorganize(rec);
-  if (!rec.risikovurdering) return;
-  if (!rec.risikovurdering.risikonivå) return;
-  relasjon(
-    rec,
-    "Risikonivå",
-    "FA-" + rec.risikovurdering.risikonivå.nå,
-    "Art",
-    true
-  );
 });
-
 io.skrivBuildfil("art", items);
-
-function relasjon(e, kant, kode, kantRetur, erSubset = true) {
-  const rel = {
-    kode: kode,
-    kant: kant,
-    kantRetur: kantRetur || "Naturvernområde"
-  };
-  if (erSubset) rel.erSubset = true;
-  e.relasjon = e.relasjon || [];
-  e.relasjon.push(rel);
-}
 
 function reorganize(e) {
   stripHtml(e, "invasjonspotensial");
@@ -36,6 +15,21 @@ function reorganize(e) {
   stripHtml(e, "økologisk effekt");
   stripHtml(e, "utbredelse i norge");
   Object.keys(structure).forEach(key => json.moveKey(e, key, structure[key]));
+}
+
+// Convert unicode decimal representation inside a string to actual characters
+// Example: "&244:" => ô
+function unicodeToChar(text) {
+  // hex
+  text = text.replace(/\\u[\dA-F]{4}/gi, function(match) {
+    return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+  });
+  // decimal
+  text = text.replace(/&#[\d]*\:/gi, match =>
+    String.fromCharCode(parseInt(match.replace(/&#/g, ""), 10))
+  );
+
+  return text;
 }
 
 function stripHtml(e, k) {
@@ -56,30 +50,7 @@ function stripHtml(e, k) {
   v = v.replace(/\<a href=\"(.*?)\">.*<\/a>/g, "$1");
   v = v.replace(/\<br\/?\>/g, "");
   v = v.replace(/\n/g, "");
-  v = v.replace(/&#171:/g, "«");
-  v = v.replace(/&#173:/g, "-");
-  v = v.replace(/&#176:/g, "°");
-  v = v.replace(/&#180:/g, "´");
-  v = v.replace(/&#181:/g, "µ");
-  v = v.replace(/&#186:/g, "º");
-  v = v.replace(/&#187:/g, "»");
-  v = v.replace(/&#189:/g, "½");
-  v = v.replace(/&#201:/g, "É");
-  v = v.replace(/&#214:/g, "Ö");
-  v = v.replace(/&#215:/g, "×");
-  v = v.replace(/&#225:/g, "á");
-  v = v.replace(/&#226:/g, "â");
-  v = v.replace(/&#228:/g, "ä");
-  v = v.replace(/&#233:/g, "é");
-  v = v.replace(/&#234:/g, "ê");
-  v = v.replace(/&#235:/g, "ë");
-  v = v.replace(/&#237:/g, "í");
-  v = v.replace(/&#243:/g, "ó");
-  v = v.replace(/&#244:/g, "ô");
-  v = v.replace(/&#246:/g, "ö");
-  v = v.replace(/&#252:/g, "ü");
-  v = v.replace(/&#39:/g, "'");
-
+  v = unicodeToChar(v);
   v = v.replace("fler&#168:rig", "flerårig"); //stavefeil
   e[k] = v.trim();
 }
