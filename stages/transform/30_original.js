@@ -21,6 +21,7 @@ function livsmedium(e) {
   const kriterie = rv.kriterie;
   if (!kriterie) return;
   livsmedium2(kriterie.c, "koloniserte naturtyper");
+  livsmedium2(kriterie.d, "naturtyper");
   livsmedium2(kriterie.e, "naturtyper");
 }
 
