@@ -12,21 +12,18 @@ io.skrivBuildfil("art", items);
 function reorganize(e) {
   Object.keys(e).forEach(k => stripHtml(e, k));
   Object.keys(structure).forEach(key => json.moveKey(e, key, structure[key]));
-  livsmedium(e);
-}
 
-function livsmedium(e) {
   const rv = e.risikovurdering;
   if (!rv) return;
   const kriterie = rv.kriterie;
   if (!kriterie) return;
-  livsmedium2(kriterie.c, "koloniserte naturtyper");
-  livsmedium2(kriterie.d, "naturtyper");
-  livsmedium2(kriterie.e, "naturtyper");
-  livsmedium2(kriterie.g, "øvrige naturtyper");
+  livsmedium_prefiks(kriterie.c, "koloniserte naturtyper");
+  livsmedium_prefiks(kriterie.d, "naturtyper");
+  livsmedium_prefiks(kriterie.e, "naturtyper");
+  livsmedium_prefiks(kriterie.g, "øvrige naturtyper");
 }
 
-function livsmedium2(kriterie, key) {
+function livsmedium_prefiks(kriterie, key) {
   if (!kriterie) return;
   const typer = kriterie[key];
   if (!typer) return;
