@@ -23,6 +23,7 @@ function livsmedium(e) {
   livsmedium2(kriterie.c, "koloniserte naturtyper");
   livsmedium2(kriterie.d, "naturtyper");
   livsmedium2(kriterie.e, "naturtyper");
+  livsmedium2(kriterie.g, "øvrige naturtyper");
 }
 
 function livsmedium2(kriterie, key) {
