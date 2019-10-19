@@ -1,13 +1,12 @@
 const { io, json, text } = require("lastejobb");
 const structure = require("./structure");
 
-const r = {};
 const items = io.lesDatafil("20_unflatten").items;
 items.forEach(rec => {
   reorganize(rec);
 });
-console.log(r);
-io.skrivBuildfil("art", items);
+
+io.skrivDatafil(__filename, items);
 
 function reorganize(e) {
   Object.keys(e).forEach(k => stripHtml(e, k));
