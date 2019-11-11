@@ -5,5 +5,5 @@ const options = {
   quote: ""
 };
 
-const src = csv.les("data/fa.csv", options, { encoding: "utf16le" });
+const src = csv.les("temp/fa.csv", options, { encoding: "utf16le" });
 io.skrivDatafil(__filename, src);
