@@ -1,7 +1,7 @@
 const { io, json, text } = require("lastejobb");
 const structure = require("./structure");
 
-const items = io.lesDatafil("20_unflatten").items;
+const items = io.lesTempJson("20_unflatten");
 items.forEach(rec => {
   reorganize(rec);
 });

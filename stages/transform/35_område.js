@@ -1,8 +1,8 @@
 const { io } = require("lastejobb");
 
-const områder = io.lesDatafil("art-fremmed-ubehandlet/område");
+const områder = io.lesTempJson("art-fremmed-ubehandlet/område");
 
-const items = io.lesDatafil("30_original").items;
+const items = io.lesTempJson("30_original");
 items.forEach(rec => {
   if (rec.utbredelse && rec.utbredelse.norge)
     mapOmråder(rec.utbredelse.norge, "nåværende");

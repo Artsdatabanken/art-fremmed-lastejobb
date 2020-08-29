@@ -2,7 +2,7 @@ const { io } = require("lastejobb");
 
 const all = { a: {}, b: {}, area: {} };
 
-const items = io.lesDatafil("30_original").items;
+const items = io.lesTempJson("30_original");
 items.forEach(rec => {
   if (rec.utbredelse && rec.utbredelse.global) {
     mapOmråder(rec.utbredelse.global.naturlig, rec.autorkode);

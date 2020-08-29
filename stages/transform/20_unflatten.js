@@ -1,6 +1,6 @@
 const { io } = require("lastejobb");
 
-const src = io.lesDatafil("10_json").items;
+const src = io.lesTempJson("10_json");
 const r = src.map(rec => map(rec));
 io.skrivDatafil(__filename, r);
 

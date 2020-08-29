@@ -4,16 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "download": "node index download",
-    "transform": "node --max_old_space_size=8192 index transform",
+    "download": "node node_modules/lastejobb/lastejobb stages/download",
+    "transform": "node node_modules/lastejobb/lastejobb stages/transform",
     "build": "npm run download && npm run transform",
-    "test": "node --max_old_space_size=6144 node_modules/.bin/jest",
-    "deploy": "./scripts/deploy.sh"
+    "deploy": "node node_modules/lastejobb/lastejobb stages/deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lastejobb": "^2.22.0"
+    "lastejobb": "^3.7.1"
   }
 }
